@@ -119,11 +119,7 @@ app = FastAPI(
 )
 
 origins = [
-    "http://localhost:3000",
-    "http://localhost:8081",
-    "http://twitch-sub-ui:3000",
-    "http://twitch-sub-ui:80",
-    "https://twitch-subs.devopswithbrian.com"
+    "*",
 ]
 
 app.add_middleware(
