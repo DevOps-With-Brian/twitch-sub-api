@@ -1,0 +1,12 @@
+fastapi==0.92.0
+uvicorn==0.20.0
+psycopg2-binary==2.9.5
+sqlmodel==0.0.8
+asyncpg==0.27.0
+alembic==1.9.4
+Commitizen==2.42.1
+python-jose==3.3.0
+passlib==1.7.4
+bcrypt==4.0.1
+python-multipart==0.0.6
+requests==2.28.2
