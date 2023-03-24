@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: twitch-sub-api
-          image: devopswithbrian/twitch-sub-api:0.0.1
+          image: devopswithbrian/twitch-sub-api:0.1.1
           env:
             - name: DB_USER
               valueFrom:
