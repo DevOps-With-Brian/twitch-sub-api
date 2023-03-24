@@ -1,56 +1,56 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devopardy-api
+  name: twitch-sub-api
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: devopardy-api
+      app: twitch-sub-api
   replicas: 1
   template:
     metadata:
       labels:
-        app: devopardy-api
+        app: twitch-sub-api
     spec:
       containers:
-        - name: devopardy-api
-          image: devopswithbrian/devopardy-api:0.19.0
+        - name: twitch-sub-api
+          image: devopswithbrian/twitch-sub-api:0.0.1
           env:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: DB_USER
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: DB_PASSWORD
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: DATABASE_URL
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: SECRET_KEY
             - name: ADMIN_API_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: ADMIN_API_USERNAME
             - name: ADMIN_API_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: ADMIN_API_PASSWORD
             - name: DB_NAME
-              value: devopardy
+              value: twitch-sub
             - name: DB_HOST
-              value: devopardy-db
+              value: twitch-sub-db
           ports:
             - containerPort: 8000
-              name: devopardy-api
+              name: twitch-sub-api

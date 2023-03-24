@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: devopardy-api
+  name: twitch-sub-api
   namespace: default
 spec:
   selector:
-    app: devopardy-api
+    app: twitch-sub-api
   ports:
-    - name: devopardy-api
+    - name: twitch-sub-api
       port: 8000
       targetPort: 8000

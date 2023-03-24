@@ -6,6 +6,8 @@ class SubscriberBase(BaseModel):
     user_id: str
     user_name: str
     is_gifted: bool
+    profile_photo: str
+    founder: str
 
 
 class SubscriberCreate(SubscriberBase):
@@ -21,6 +23,8 @@ class SubscriberInDB(SubscriberCreate):
     user_id: str
     user_name: str
     is_gifted: bool
+    profile_photo: str
+    founder: str
 
     class Config:
         orm_mode = True

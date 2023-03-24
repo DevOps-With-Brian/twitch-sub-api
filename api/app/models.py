@@ -10,3 +10,5 @@ class Subscriber(Base):
     user_id = Column(String)
     user_name = Column(String)
     is_gifted = Column(Boolean)
+    profile_photo = Column(String)
+    founder       = Column(String, default="no")

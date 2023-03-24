@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 from sqlalchemy.orm import selectinload
 from typing import List, Optional
-from datetime import time
+from datetime import datetime, timedelta
 import requests
 import os
 
@@ -47,12 +47,12 @@ callback_url = "http://localhost:8000"
 
 # Initialize the OAuth token and timestamp
 oauth_token = ""
-token_timestamp = 0
+token_timestamp = datetime.min
 
 # Define a function to get an OAuth token
 def get_oauth_token():
     global oauth_token, token_timestamp
-    if time.time() - token_timestamp > 3000: # 50 minutes
+    if datetime.utcnow() - token_timestamp > timedelta(minutes=50):
         token_url = "https://id.twitch.tv/oauth2/token"
         params = {
             "client_id": client_id,
@@ -62,7 +62,7 @@ def get_oauth_token():
         response = requests.post(token_url, params=params)
         response_data = response.json()
         oauth_token = response_data["access_token"]
-        token_timestamp = time.time()
+        token_timestamp = datetime.utcnow()
     return oauth_token
 
 # Define a function to register the webhook
@@ -88,6 +88,19 @@ def register_webhook():
     response_data = response.json()
     return response_data["id"]
 
+
+def lookup_user(user_id):
+    api_url = "https://api.twitch.tv/helix/users?id=" + user_id
+    headers = {
+        "Client-ID": client_id,
+        "Authorization": f"Bearer {get_oauth_token()}"
+    }
+    
+    response = requests.get(api_url, headers=headers)
+    response_data = response.json()
+    print(response_data)
+    twitch_log_url = response_data['data'][0]['profile_image_url']
+    return twitch_log_url
 
 
 app = FastAPI(
@@ -236,11 +249,14 @@ async def handle_webhook_callback(request: Request, response: Response, session:
                 print(f"user_name: {event_data['user_name']}")
                 print(f"user_id: {event_data['user_id']}")
                 print(f"is_gifted: {event_data['is_gift']}")
+                user_profile_url = lookup_user(event_data['user_id'])
+                print(user_profile_url)
                 created_subscribers = []
                 subscribers=[{
                    "user_name": event_data['user_name'],
                    "user_id": event_data['user_id'],
-                   "is_gifted": event_data['is_gift']
+                   "is_gifted": event_data['is_gift'],
+                   "profile_photo": user_profile_url
                 }]
                 async with session as s:
                     for subscriber in subscribers:

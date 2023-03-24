@@ -1,36 +1,36 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: devopardy-alembic-migrate
+  name: twitch-sub-alembic-migrate
   namespace: default
 spec:
   template:
     metadata:
-      name: devopardy-alembic-migrate
+      name: twitch-sub-alembic-migrate
     spec:
       containers:
         - name: alembic
-          image: devopswithbrian/devopardy-db-migration:0.14.0
+          image: devopswithbrian/twitch-sub-db-migration:0.14.0
           env:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: DB_USER
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: DB_PASSWORD
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: DATABASE_URL
             - name: DB_NAME
-              value: devopardy
+              value: twitch-sub
             - name: DB_HOST
-              value: devopardy-db
+              value: twitch-sub-db
             - name: ALEMBIC_CONFIG
               value: /usr/src/app/alembic.ini
           imagePullPolicy: Always

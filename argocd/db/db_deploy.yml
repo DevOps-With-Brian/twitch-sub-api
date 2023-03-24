@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devopardy-db
+  name: twitch-sub-db
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: devopardy-db
+      app: twitch-sub-db
   replicas: 1
   template:
     metadata:
       labels:
-        app: devopardy-db
+        app: twitch-sub-db
     spec:
       containers:
         - name: postgres
@@ -20,15 +20,15 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: devopardy-prd
+                  name: twitch-sub-prd
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
-              value: devopardy
+              value: twitch-sub
           ports:
             - containerPort: 5432
               name: postgresql
@@ -38,16 +38,16 @@ spec:
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
-            claimName: devopardy-db-postgres-pvc
+            claimName: twitch-sub-db-postgres-pvc
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: devopardy-db-postgres-pvc
+  name: twitch-sub-db-postgres-pvc
   namespace: default
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 40Gi
+      storage: 10Gi

@@ -24,6 +24,8 @@ def upgrade() -> None:
         sa.Column('user_id', sa.String(), nullable=False),
         sa.Column('user_name', sa.String(), nullable=False),
         sa.Column('is_gifted', sa.Boolean(), nullable=False),
+        sa.Column('profile_photo', sa.String(), nullable=False),
+        sa.Column('founder', sa.String(), autoincrement=False, nullable=False, server_default='no'),
         sa.PrimaryKeyConstraint('id')
     )
 
