@@ -47,6 +47,26 @@ spec:
                 secretKeyRef:
                   name: twitch-sub-prd
                   key: ADMIN_API_PASSWORD
+            - name: TWITCH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: twitch-sub-prd
+                  key: TWITCH_CLIENT_ID
+            - name: TWITCH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: twitch-sub-prd
+                  key: TWITCH_CLIENT_SECRET
+            - name: TWITCH_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: twitch-sub-prd
+                  key: TWITCH_WEBHOOK_SECRET
+            - name: TWITCH_BROADCASTER_ID
+              valueFrom:
+                secretKeyRef:
+                  name: twitch-sub-prd
+                  key: TWITCH_BROADCASTER_ID
             - name: DB_NAME
               value: twitch-sub
             - name: DB_HOST
